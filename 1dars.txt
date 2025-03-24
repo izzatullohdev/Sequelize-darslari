@@ -1,0 +1,25 @@
+🚀 Sequelize ORM nima?
+Sequelize — bu Node.js uchun yozilgan, promise-based (va endi async/await bilan ham ishlaydi) ORM (Object Relational Mapper) kutubxonasidir.
+
+U sizga SQL so‘rov yozmasdan turib, JavaScript kod orqali PostgreSQL, MySQL, SQLite, va MariaDB bilan ishlash imkonini beradi.
+
+🧠 ORM degani nima?
+ORM (Object Relational Mapping) — bu obyektlarni (JS class, model) va ma’lumotlar bazasidagi jadval orasidagi ko‘prik. Ya’ni:
+
+SQL yozmasdan User.findAll() deb yozasiz
+
+U esa SELECT * FROM users; degan SQLni o‘zi yozib, natijani olib keladi.
+
+🧩 Nima uchun Sequelize ishlatiladi?
+✅ SQL yozishni kamaytiradi – Kod o‘qishliroq va strukturali bo‘ladi
+✅ Validatsiya va bog‘lanishlarni ichida qo‘llab-quvvatlaydi
+✅ Migrationlar bilan versiya nazoratini qiladi
+✅ Asinxron ishlashni qo‘llaydi (async/await)
+✅ Ko‘p DB turlarini qo‘llab-quvvatlaydi
+
+🛠️ O‘rnatish:
+
+npm install sequelize pg pg-hstore
+
+👉 pg — PostgreSQL client
+👉 pg-hstore — JSON obyektlarni saqlash uchun
