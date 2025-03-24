@@ -1,0 +1,13 @@
+destroy() yordamida bazadan ma’lumotni o‘chirishni o‘rganamiz
+
+where orqali qaysi ma’lumotni o‘chirishni aniqlash
+
+findOne() + .destroy() orqali instance orqali o‘chirish
+
+count orqali necha qator o‘chganini bilish
+
+Instance orqali .destroy()
+
+destroy() asosiy sintaksisi:
+    await Model.destroy({ where: { ... } });
+

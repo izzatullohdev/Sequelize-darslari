@@ -11,8 +11,8 @@ const User = require("./models/user.model");
     console.error("Xatolik yuz berdi :", err);
   }
 })();
-
 // (async () => {
+
 //   try {
 //     const newUser = await User.create({
 //       username: "ho",
@@ -31,6 +31,7 @@ const User = require("./models/user.model");
 
 // findAll()
 // (async () => {
+
 //   try {
 //     const users = await User.findAll({
 //       where: { username: "holid28" },
@@ -118,18 +119,50 @@ const User = require("./models/user.model");
 //   }
 // })();
 
-(async () => {
-  try {
-    const user = await User.findByPk(2);
-    if (!user) {
-      console.log("Foydalanuvchi topilmadi");
-      return;
-    }
-    user.username = "holiddev";
-    user.email = "holid2@example.com";
-    await user.save();
-    console.log("Foydalanuvchi yangilandi:", user.toJSON());
-  } catch (err) {
-    console.log("Xatolik yuz berdi :", err.message);
-  }
-})();
+// (async () => {
+//   try {
+//     const user = await User.findByPk(2);
+//     if (!user) {
+//       console.log("Foydalanuvchi topilmadi");
+//       return;
+//     }
+//     user.username = "holiddev";
+//     user.email = "holid2@example.com";
+//     await user.save();
+//     console.log("Foydalanuvchi yangilandi:", user.toJSON());
+//   } catch (err) {
+//     console.log("Xatolik yuz berdi :", err.message);
+//   }
+// })();
+
+// (async () => {
+//   try {
+//     const count = await User.destroy({
+//       where: { email: "holid28@example.com" },
+//     });
+//     if (count === 0) {
+//       console.log("Foydalanuvchi topilmadi");
+//     } else {
+//       console.log("Foydalanuvchi o'chirildi", count);
+//     }
+//   } catch (err) {
+//     console.log("Xatolik yuz berdi :", err.message);
+//   }
+// })();
+
+// (async () => {
+//   try {
+//     const user = await User.findOne({
+//       where: { email: "holid30@example.com" },
+//     });
+
+//     if (user) {
+//       await user.destroy();
+//       console.log("Foydalanuvchi o'chirildi", user.username);
+//     } else {
+//       console.log("Foydalanuvchi topilmadi");
+//     }
+//   } catch (err) {
+//     console.log("Xatolik yuz berdi :", err.message);
+//   }
+// })();
