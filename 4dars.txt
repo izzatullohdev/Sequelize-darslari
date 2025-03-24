@@ -1,0 +1,26 @@
+Foydalanuvchi noto‘g‘ri yoki bo‘sh ma'lumot kiritmasligi uchun oldindan tekshiruv (validation) qo‘shamiz.
+
+Sequelizeda validatorlar yordamida email, username, password kabi maydonlarga qoidalar o‘rnatamiz.
+
+Darsda isEmail, len, notEmpty, isAlpha va custom validatorlarni o‘rganamiz.
+
+Nima uchun validator kerak?
+
+    Xavfsizlik: noto‘g‘ri yoki zararli ma’lumotlarni oldini olish.
+
+    Ma’lumotlar sifati: bazaga faqat to‘g‘ri va to‘liq ma’lumot tushadi.
+
+    Xatolikni oldindan tutish: foydalanuvchi xato qilsa, unga tushunarli xabar beriladi.    
+
+Vazifalari:
+    notEmpty	Bo‘sh string kiritishni taqiqlaydi
+    len: [min, max]	Belgilar uzunligi chegarasini belgilaydi
+    isEmail	Email formatini tekshiradi (e.g. a@b.com)
+    isAlpha	Faqat harflar bo‘lishi kerak
+    is	Regex orqali maxsus format belgilash
+    custom validator	O‘zing yozgan maxsus qoida
+
+Xulosa:
+    allowNull: false	Null qiymatni oldini oladi
+    validate: {}	Ma’lumot formatini tekshiradi
+    custom validator	O‘z shartlaringni yozish imkonini beradi

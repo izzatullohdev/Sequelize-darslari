@@ -12,17 +12,22 @@ const User = require("./models/user.model");
   }
 })();
 
-// (async () => {
-//   try {
-//     const newUser = await User.create({
-//       username: "holid28",
-//       email: "holid31@example.com",
-//     });
-//     console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
-//   } catch (err) {
-//     console.error("Xatolik yuz berdi :", err.message);
-//   }
-// })();
+(async () => {
+  try {
+    const newUser = await User.create({
+      username: "ho",
+      email: "holid31",
+    });
+    console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
+  } catch (err) {
+    if (err.name === "SequelizeValidationError") {
+      err.errors.forEach((error) => {
+        console.error("Validation xatoligi:", error.message);
+      });
+    }
+    console.error("Nomalum xatolik yuz berdi :", err.message);
+  }
+})();
 
 // findAll()
 // (async () => {
@@ -78,21 +83,21 @@ const User = require("./models/user.model");
 //   }
 // })();
 
-(async () => {
-  try {
-    const gmailUsers = await User.count({
-      where: {
-        email: {
-          [Op.like]: "%@example.com",
-        },
-      },
-    });
-    if (gmailUsers > 0) {
-      console.log("Example foydalanuvchilari soni:", gmailUsers);
-    } else {
-      console.log("Example foydalanuvchilari yo'q");
-    }
-  } catch (err) {
-    console.error("Xatolik yuz berdi :", err.message);
-  }
-})();
+// (async () => {
+//   try {
+//     const gmailUsers = await User.count({
+//       where: {
+//         email: {
+//           [Op.like]: "%@example.com",
+//         },
+//       },
+//     });
+//     if (gmailUsers > 0) {
+//       console.log("Example foydalanuvchilari soni:", gmailUsers);
+//     } else {
+//       console.log("Example foydalanuvchilari yo'q");
+//     }
+//   } catch (err) {
+//     console.error("Xatolik yuz berdi :", err.message);
+//   }
+// })();
