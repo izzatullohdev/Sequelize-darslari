@@ -12,22 +12,22 @@ const User = require("./models/user.model");
   }
 })();
 
-(async () => {
-  try {
-    const newUser = await User.create({
-      username: "ho",
-      email: "holid31",
-    });
-    console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
-  } catch (err) {
-    if (err.name === "SequelizeValidationError") {
-      err.errors.forEach((error) => {
-        console.error("Validation xatoligi:", error.message);
-      });
-    }
-    console.error("Nomalum xatolik yuz berdi :", err.message);
-  }
-})();
+// (async () => {
+//   try {
+//     const newUser = await User.create({
+//       username: "ho",
+//       email: "holid31",
+//     });
+//     console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
+//   } catch (err) {
+//     if (err.name === "SequelizeValidationError") {
+//       err.errors.forEach((error) => {
+//         console.error("Validation xatoligi:", error.message);
+//       });
+//     }
+//     console.error("Nomalum xatolik yuz berdi :", err.message);
+//   }
+// })();
 
 // findAll()
 // (async () => {
@@ -101,3 +101,35 @@ const User = require("./models/user.model");
 //     console.error("Xatolik yuz berdi :", err.message);
 //   }
 // })();
+
+// (async () => {
+//   try {
+//     const [count, updateUsers] = await User.update(
+//       { username: "holid" },
+//       { where: { email: "holid28@example.com" }, returning: true }
+//     );
+//     if (count === 0) {
+//       console.log("Foydalanuvchi topilmadi yoki Yangilanish kerak emas");
+//     } else {
+//       console.log("Foydalanuvchi yangilandi:", updateUsers[0].toJSON());
+//     }
+//   } catch (err) {
+//     console.log("Xatolik yuz berdi :", err.message);
+//   }
+// })();
+
+(async () => {
+  try {
+    const user = await User.findByPk(2);
+    if (!user) {
+      console.log("Foydalanuvchi topilmadi");
+      return;
+    }
+    user.username = "holiddev";
+    user.email = "holid2@example.com";
+    await user.save();
+    console.log("Foydalanuvchi yangilandi:", user.toJSON());
+  } catch (err) {
+    console.log("Xatolik yuz berdi :", err.message);
+  }
+})();

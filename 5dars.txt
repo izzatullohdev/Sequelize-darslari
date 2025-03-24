@@ -1,0 +1,47 @@
+update() yordamida ma’lumotlar bazasidagi mavjud foydalanuvchini yangilashni o‘rganamiz
+
+where bilan qaysi foydalanuvchini yangilashni tanlaymiz
+
+Yangilanishdan avval tekshirish, try/catch bilan xatolikni tutish, va returning: true haqida tushuncha beramiz
+
+await Model.update(updateObject, {
+  where: { ... },
+  returning: true, // optional
+});
+
+ Nima bu yerda muhim?
+    update()	Yangilash funksiyasi
+    where	Qaysi user'ni yangilash kerakligini bildiradi
+    returning: true	PostgreSQL uchun kerakli. Yangilangan obyektni qaytaradi
+    count	Nechta row (qator) yangilanganini bildiradi
+ 
+Bonus: .save() bilan instance orqali yangilash
+    const User = require("./models/user.model");
+    (async () => {
+      try {
+        // 1. Foydalanuvchini ID bo‘yicha topamiz
+        const user = await User.findByPk(1);
+
+        if (!user) {
+          console.log("Foydalanuvchi topilmadi.");
+          return;
+        }
+
+        // 2. Obyekt ustida o‘zgarish kiritamiz
+        user.username = "updated_by_instance";
+        user.email = "updated_email@example.com";
+
+        // 3. Saqlaymiz (UPDATE bajariladi)
+        await user.save();
+
+        console.log("✅ User yangilandi:", user.toJSON());
+      } catch (error) {
+        console.error("❌ Xatolik:", error.message);
+      }
+    })();
+  
+
+.save() usulining afzalliklari:
+findByPk()	Foydalanuvchini topadi (User instance)
+user.username = ""	JS obyekt sifatida o‘zgaradi
+await user.save()	Bazaga saqlanadi (update bo‘ladi)
