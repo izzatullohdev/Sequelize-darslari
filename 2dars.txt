@@ -1,0 +1,31 @@
+sync() = "Modelni ma’lumotlar bazasida jadvalga aylantir."
+🛠️ sync()'ning 3 xil ko‘rinishi:
+
+1.✅ sequelize.sync({ force: false })
+    → Jadval bo‘lsa o‘chirmaydi, bo‘lmasa yaratadi. Eng xavfsiz usul.
+
+2.⚠️ sequelize.sync({ force: true })
+    → Eski jadvalni o‘chiradi va yangisini yaratadi. Lekin Ma’lumotlar o‘chib ketadi!
+
+3.🔄 sequelize.sync({ alter: true })
+    → Jadvalni modelga moslab dynamic update qiladi (ustun qo‘shish yoki o‘zgartirish).
+
+
+(async () => {
+  try {
+    const newUser = await User.create({
+      username: "holid27",
+      email: "holid27@example.com",
+    });
+    console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
+  } catch (error) {
+    console.error("Foydalanuvchi yaratishda xatolik:", error.message);
+  }
+})();
+
+📌 Bonus tushuntirishlar:
+.toJSON() nima uchun kerak?
+
+unique va allowNull qanday ishlayapti, agarda noto‘g‘ri qiymat bersak?
+
+Email takrorlansa yoki bo‘sh bo‘lsa, nima xatolik chiqadi? Bu orqali validationga kirib boriladi.

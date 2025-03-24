@@ -1,5 +1,5 @@
 const sequelize = require("./config/database");
-require("./models/user.model");
+const User = require("./models/user.model");
 (async () => {
   try {
     await sequelize.authenticate();
@@ -8,5 +8,17 @@ require("./models/user.model");
     console.info("Database yaratildi");
   } catch (err) {
     console.error("Xatolik yuz berdi :", err);
+  }
+})();
+
+(async () => {
+  try {
+    const newUser = await User.create({
+      username: "holid28",
+      email: "holid28@example.com",
+    });
+    console.log("Yangi foydalanuvchi yaratildi:", newUser.toJSON());
+  } catch (err) {
+    console.error("Xatolik yuz berdi :", err.message);
   }
 })();
