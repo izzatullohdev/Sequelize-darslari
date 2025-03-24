@@ -1,0 +1,60 @@
+CRUD operatsiyalarining Read (o‘qish) qismiga kirishamiz.
+
+Ma’lumotlarni qanday olishni o‘rganamiz: hammasini, bitta userni, yoki ID orqali.
+
+Shuningdek, where, limit, order, attributes kabi foydali opsiyalar bilan tanishamiz.
+
+findAll() – Barcha foydalanuvchilarni olish
+    (async () => {
+  const users = await User.findAll();
+  console.log("Foydalanuvchilar ro'yxati:", users.map(u => u.toJSON()));
+    })();
+
+Qo‘shimcha: where, limit, order, attributes
+    const users = await User.findAll({
+  where: { username: "holid27" },
+  limit: 2,
+  order: [["createdAt", "DESC"]],  ASC 
+  attributes: ["id", "username"]
+    });
+
+findOne() – Bitta foydalanuvchini olish (birinchi topilgan)
+    const user = await User.findOne({
+  where: { email: "holid27@example.com" }
+    });
+    console.log("Topilgan foydalanuvchi:", user?.toJSON());
+
+
+findByPk() – Foydalanuvchini ID orqali olish
+    const user = await User.findByPk(1);
+    console.log("ID bo‘yicha topilgan foydalanuvchi:", user?.toJSON());
+
+Xatoliklarni tutish (try/catch bilan)
+    try {
+  const user = await User.findByPk(1);
+  if (!user) {
+    console.log("Foydalanuvchi topilmadi");
+  } else {
+    console.log("Foydalanuvchi:", user.toJSON());
+  }
+    } catch (error) {
+      console.error("Xatolik:", error.message);
+    }
+
+🎁 Bonus g‘oyalar (istasa kiritib ketiladi):
+count() bilan foydalanuvchilar sonini olish
+    const User = require("./models/user.model");
+
+    (async () => {
+      const count = await User.count();
+      console.log("Jami foydalanuvchilar soni:", count);
+    })();
+
+    const gmailUsers = await User.count({
+       where: {
+        email: {
+            [Op.like]: "%@gmail.com"
+            }
+        }
+    });
+console.log("Gmail foydalanuvchilari soni:", gmailUsers);
