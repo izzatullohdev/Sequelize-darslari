@@ -1,9 +1,11 @@
 {
   "name": "sequelize-",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "devDependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "pg": "^8.14.1",
     "sequelize": "^6.37.6"
   }
