@@ -1,0 +1,31 @@
+Mavzu : Sequelize ORM 7-dars: User ↔ Post aloqasi va include bilan ma’lumotlarni birga olish
+
+    User va Post model o‘rtasida One-to-Many (1:N) aloqa o‘rnatish
+
+    foreignKey yordamida Post jadvalini User bilan bog‘lash
+
+    include orqali user'ni postlari bilan birga olish
+
+    Bonus: alias (as) va instance orqali ishlash
+
+    Tushunchalar: 
+        hasMany()	User → ko‘p postga ega
+        belongsTo()	Har bir post → bitta userga tegishli
+        foreignKey	Post jadvalda userId ustuni orqali bog‘lash
+        as	Alias — foydalanuvchi postlarini user.posts deb olish uchun
+        include	JOIN ga o‘xshaydi — model ichidagi bog‘langan ma’lumotlarni chaqiradi
+
+
+
+
+        {
+            username:"holid",
+            posts:[
+                {
+                    title:"post-1"
+                },
+                {
+                    title:"post-2"
+                }
+            ]
+        }
