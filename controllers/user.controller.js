@@ -62,3 +62,24 @@ exports.deleteUser = async (req, res) => {
     console.error("Serverda xatolik", error.message);
   }
 };
+
+// restore User
+exports.restoreUser = async (req, res) => {
+  try {
+    const deleteUser = await User.findOne({
+      where: { id: req.params.id },
+      paranoid: false,
+    });
+    console.info(deleteUser);
+    if (!deleteUser) {
+      return res
+        .status(404)
+        .json({ message: "O'chirilgan Foydalanuvchi topilmadi" });
+    }
+    await deleteUser.restore();
+    res.status(200).json(deleteUser);
+  } catch (err) {
+    console.error("Xatolik Tiknalishda", err.message);
+    res.status(500).json({ message: "Serverda xatolik", error: err.message });
+  }
+};
