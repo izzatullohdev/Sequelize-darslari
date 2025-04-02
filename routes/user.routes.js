@@ -8,10 +8,10 @@ const {
   deleteUser,
   restoreUser,
 } = require("../controllers/user.controller");
-
+const authMiddlewarare = require("../middlewares/auth.middleware");
 const { userValidationRules, validate } = require("../middlewares/validation");
 router.get("/", getAllUsers); //check
-router.get("/:id", getUserById); //check
+router.get("/:id", authMiddlewarare, getUserById); //check
 router.post("/", userValidationRules(), validate, createUser); //check
 router.put("/:id", userValidationRules(), validate, updateUser); //check
 router.delete("/:id", deleteUser); //check

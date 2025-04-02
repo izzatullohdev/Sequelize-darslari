@@ -1,85 +1,79 @@
 const { User, Post } = require("../models");
-
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await User.findAll({ include: { model: Post, as: "posts" } });
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Serverda xatolik", error: error.message });
+const asyncHandler = require("../utils/asyncHandler");
+// GET /users
+exports.getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.findAll({ include: { model: Post, as: "posts" } });
+  if (!users) {
+    const error = new Error("Foydalanuvchilar topilmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  res.json(users);
+});
 
 // GET /users/:id
-exports.getUserById = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "Foydalanuvchi topilmadi" });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Serverda xatolik", error: error.message });
+exports.getUserById = asyncHandler(async (req, res, next) => {
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    const error = new Error("Foydalanuvchi ID bo'yicha topilmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  res.json(user);
+});
 // // POST /users
-exports.createUser = async (req, res) => {
-  try {
-    const { username, email } = req.body;
-    const user = await User.create({ username, email });
-    res.status(201).json(user);
-  } catch (error) {
-    console.error("Serverda xatolik", error.message);
+exports.createUser = asyncHandler(async (req, res, next) => {
+  const { username, email } = req.body;
+  const user = await User.create({ username, email });
+  if (!user) {
+    const error = new Error("Foydalanuvchi yaratilmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+
+  res.status(201).json(user);
+});
 
 // PUT /users/:id
-exports.updateUser = async (req, res) => {
-  try {
-    const { username, email } = req.body;
-    const user = await User.findByPk(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "Foydalanuvchi topilmadi" });
-    }
-    user.username = username;
-    user.email = email;
-    await user.save();
-    res.status(203).json(user);
-  } catch (error) {
-    console.error("Serverda xatolik", error.message);
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const { username, email } = req.body;
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    const error = new Error("Foydalanuvchi ID bo'yicha yangilanmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  user.username = username;
+  user.email = email;
+  await user.save();
+  res.status(203).json(user);
+});
 
 // DELETE /users/:id
-exports.deleteUser = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "Foydalanuvchi topilmadi" });
-    }
-    await user.destroy();
-    res.status(204).json({ message: "Foydalanuvchi o'chirildi" });
-  } catch (error) {
-    console.error("Serverda xatolik", error.message);
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    const error = new Error("Foydalanuvchi ID bo'yicha o'chirilmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  await user.destroy();
+  res.status(204).json({ message: "Foydalanuvchi o'chirildi" });
+});
 
 // restore User
-exports.restoreUser = async (req, res) => {
-  try {
-    const deleteUser = await User.findOne({
-      where: { id: req.params.id },
-      paranoid: false,
-    });
-    console.info(deleteUser);
-    if (!deleteUser) {
-      return res
-        .status(404)
-        .json({ message: "O'chirilgan Foydalanuvchi topilmadi" });
-    }
-    await deleteUser.restore();
-    res.status(200).json(deleteUser);
-  } catch (err) {
-    console.error("Xatolik Tiknalishda", err.message);
-    res.status(500).json({ message: "Serverda xatolik", error: err.message });
+exports.restoreUser = asyncHandler(async (req, res, next) => {
+  const deleteUser = await User.findOne({
+    where: { id: req.params.id },
+    paranoid: false,
+  });
+  if (!deleteUser) {
+    const error = new Error(
+      "Foydalanuvchi ID bo'yicha o'chirilgan malumoti tiklanmadi"
+    );
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  await deleteUser.restore();
+  res.status(200).json(deleteUser);
+});

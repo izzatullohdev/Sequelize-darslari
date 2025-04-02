@@ -1,12 +1,13 @@
 const { Post, User } = require("../models");
-
-exports.getAllPosts = async (req, res) => {
-  try {
-    const posts = await Post.findAll({
-      include: { model: User, as: "users" },
-    });
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ message: "Server xatoligi", error: error.message });
+const asyncHandler = require("../utils/asyncHandler");
+exports.getAllPosts = asyncHandler(async (req, res, next) => {
+  const posts = await Post.findAll({
+    include: { model: User, as: "users" },
+  });
+  if (!posts) {
+    const error = new Error("Postlar topilmadi");
+    error.statusCode = 404;
+    return next(error);
   }
-};
+  res.json(posts);
+});
